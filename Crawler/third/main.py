@@ -1,7 +1,7 @@
 # 403 Forbidden解決方法：https://blog.csdn.net/eric_sunah/article/details/11301873
 # https://stackoverflow.com/questions/36076052/beautifulsoup-find-all-on-bs4-element-resultset-object-or-list
 # https://stackoverflow.com/questions/5815747/beautifulsoup-getting-href
-# 目標：搜索十頁大於50推的文章內容
+# 目標：搜索一頁的內容，並整理出.txt檔案
 from urllib.request import urlopen
 from urllib.request import Request
 from bs4 import BeautifulSoup
@@ -32,6 +32,7 @@ def crawl_website(bs):
 
         title = title.get_text()
         hyperlink = "http://www.ptt.cc" + hyperlink.get("href")
+        print(hyperlink)
         name = name.get_text()
         date = date.get_text()
 
