@@ -1,0 +1,6 @@
+raw json file: {"Title":"Top Gun","Year":"1986","Rated":"PG","Released":"16 May 1986","Runtime":"110 min","Genre":"Action, Drama","Director":"Tony Scott","Writer":"Jim Cash, Jack Epps Jr., Ehud Yonay","Actors":"Tom Cruise, Tim Robbins, Kelly McGillis","Plot":"As students at the United States Navy's elite fighter weapons school compete to be best in the class, one daring young pilot learns a few things from a civilian instructor that are not taught in the classroom.","Language":"English","Country":"United States","Awards":"Won 1 Oscar. 11 wins & 5 nominations total","Poster":"https://m.media-amazon.com/images/M/MV5BYTgzYTg5NTMtMjFmMy00MWIxLWEwYTQtN2UyMzY3NDIzOTRjL2ltYWdlXkEyXkFqcGdeQXVyNjQzNDI3NzY@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"6.9/10"},{"Source":"Rotten Tomatoes","Value":"57%"},{"Source":"Metacritic","Value":"50/100"}],"Metascore":"50","imdbRating":"6.9","imdbVotes":"327,490","imdbID":"tt0092099","Type":"movie","DVD":"20 Oct 1998","BoxOffice":"$180,258,178","Production":"N/A","Website":"N/A","Response":"True"}
+Title: Top Gun
+Year: 1986
+Rated: PG
+Released: 16 May 1986
+Ratings(IDMB): 6.9/10

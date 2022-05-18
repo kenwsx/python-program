@@ -10,8 +10,8 @@ output = open("output.txt", "w")
 # 記錄每個半徑的總電場
 E_dic = {}
 
-# 檢測從半徑5到半徑15的數值
-for R in range(5, 16):
+# 檢測從半徑2到半徑16的數值
+for R in range(2, 17):
 
     # 點電荷所帶的電荷，假設為 1e23 個質子的電荷
     q = 1.6e-19 * 1e23  # 庫倫
@@ -82,9 +82,16 @@ for R in range(5, 16):
 
     E_dic["rad_"+str(R)+"_max"] = max(E_integral_list)
     E_dic["rad_"+str(R)+"_min"] = min(E_integral_list)
-for i in range(5, 16):
+for i in range(2, 17):
+
+    if i == 4 or i == 8 or i == 16:
+        current_max = E_dic["rad_"+str(i)+"_max"]
+        before_max = E_dic["rad_"+str(int(i/2))+"_max"]
+        max = current_max / before_max
+        # print(f"Radius {i} min:{min:.6e}", file=output, sep='')
+        print(f"Radius {i} / {int(i/2)}:{max:.6e}", file=output, sep='')
+
+for i in range(2, 17):
 
     max = E_dic["rad_"+str(i)+"_max"]
-    min = E_dic["rad_"+str(i)+"_min"]
-    print(f"Radius {i} min:{min:.6e}", file=output, sep='')
-    print(f"Radius {i} max:{max:.6e}", file=output, sep='')
+    print(f"Radius {i}:{max:.6e}", file=output, sep='')

@@ -9,7 +9,7 @@ import math
 
 
 # 小球的半徑（可隨意調整）
-R = 9
+R = 5
 # 畫出一顆不太小的球代表一群聚成球狀的電荷分布
 charge = sphere(radius=R, opacity=0.8)
 
@@ -35,20 +35,22 @@ charge.density = charge.q / (4/3)*math.pi*charge.radius**3
 epsilon = 8.854187817e-12
 
 
-theta_step, phi_step = input("Please input the steps of theta \
+''' theta_step, phi_step = input("Please input the steps of theta \
 and phi.").split()
 inte_radius_step, inte_theta_step, inte_phi_step = input("Please \
-input the steps of theta and phi.").split()
+input the steps of theta and phi.").split()'''
+theta_step, phi_step = 20, 40
+inte_radius_step, inte_theta_step, inte_phi_step = 5, 6, 3
 theta_step, phi_step = int(theta_step), int(phi_step)
 inte_radius_step, inte_theta_step, inte_phi_step = int(
     inte_radius_step), int(inte_theta_step), int(inte_phi_step)
 
 
-for theta in arange(0, 180, 180/theta_step):   # 天頂角根據輸入步數，決定總步
+for theta in arange(0, 180, 180/theta_step):   # 天頂角根據輸入步數，決定總步數
 
     theta = theta*math.pi/180  # 換成弧度
 
-    for phi in arange(0, 360, 360/phi_step):  # 方位角根據輸入步數，決定總步
+    for phi in arange(0, 360, 360/phi_step):  # 方位角根據輸入步數，決定總步數
 
         phi = phi*math.pi/180  # 換成弧度
 
@@ -90,16 +92,17 @@ for theta in arange(0, 180, 180/theta_step):   # 天頂角根據輸入步數，�
                     E += dE
 
         # 每個箭頭的電場大小
-        print("mangitude of E:", E.mag, sep='')
+        # print("mangitude of E:", E.mag, sep='')
         # 畫一個箭頭代表電場，乘上一個比例讓箭頭看起來大小合適
         arrow(pos=r, axis=E*3e-15/10, shaftwidth=sw/3)
 
         # 以(1.0/frequency)的秒數定義一秒要執行幾個
-        rate(1000)
+        rate(100)
 
 # 總共的積分步數
 print("Integration total step:", inte_phi_step
       * inte_theta_step * inte_radius_step, sep='')
 # 全部總共的步數
-print("All total step:", theta_step * phi_step * inte_phi_step
-      * inte_theta_step * inte_radius_step, sep='')
+print("All total step:", theta_step * phi_step
+      * inte_phi_step * inte_theta_step
+      * inte_radius_step, sep='')
