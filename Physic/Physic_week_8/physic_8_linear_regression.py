@@ -80,9 +80,9 @@ for d in arange(0, 2*R, 2*R/200):    					# 距離 d 從 0 到 2R，共計算 20
     B = vector(0, 0, 0)	 # 磁場先設定為 0，後面計算中會積分出來
 
     # 切割電線（做積分）
-    drp = R / 50									# 沿著圓柱半徑切成多個小段
-    dphip = 2*math.pi / 150								# 沿著角度切成多個小角度
-    dzp = L / 200									# 沿著圓柱軸長切成多個小段
+    drp = R / 20									# 沿著圓柱半徑切成多個小段
+    dphip = 2*math.pi / 60								# 沿著角度切成多個小角度
+    dzp = L / 80									# 沿著圓柱軸長切成多個小段
 
     for rp in arange(0, R, drp):						# 積分開始 rp 從 0 到 R
         for phip in arange(0, 2*math.pi, dphip):			# phip 從 0 到 2pi（繞一圈）

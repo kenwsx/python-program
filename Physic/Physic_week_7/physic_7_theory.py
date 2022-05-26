@@ -1,10 +1,9 @@
 from vpython import arrow
 from vpython import vector
-from vpython import text
 from vpython import arange
 from vpython import rate
 from vpython import cylinder
-from vpython import gdots
+from vpython import gcurve
 from vpython import color
 import math
 
@@ -16,54 +15,33 @@ L = 2												# 電線長度
 wire = cylinder(pos=vector(0, 0, -4*L), radius=R,
                 axis=vector(0, 0, 8*L), opacity=0.5)
 
-B_r = gdots(color=color.blue, fast=False, size=6)
-
-'''sw = R/10
-xaxis = arrow(axis=vector(1, 0, 0)*R*5, color=color.red, shaftwidth=sw)
-text(text="X", pos=xaxis.axis, color=xaxis.color, height=R)
-yaxis = arrow(axis=vector(0, 1, 0)*R*5, color=color.green, shaftwidth=sw)
-text(text="Y", pos=yaxis.axis, color=yaxis.color, height=R)
-zaxis = arrow(axis=vector(0, 0, 1)*R*5, color=color.cyan, shaftwidth=sw)
-text(text="Z", pos=zaxis.axis, color=zaxis.color, height=R)'''
-
-# 畫出一個箭頭代表電流方向
-sw = R/10
-arrI = arrow(axis=vector(0, 0, L/5), shaftwidth=sw)  # 箭頭長度是電線的 1/5
-arrI.pos = arrI.pos - arrI.axis/2					# 把箭頭移到畫面中央
-arrI.pos.y += R*1.5									# 箭頭稍微離開電線一些
-
-text(												# 箭頭的中央放一個文字
-    text='I',  # 文字內容
-    pos=arrI.pos+arrI.axis/2,  # 文字位置
-    height=R,  # 文字高度
-    font='serif'  # 設定字型
-)
+BL_vs_R = gcurve(color=color.blue, fast=False, size=6)
 
 # 電流大小
-I = 50   # 安培
+I = 5    # 安培
 # 電流密度（單位面積的電流）
 J = wire.axis.norm() * I / (math.pi * R**2)
 # 真空磁導率（或導磁率，SI 單位制）
 mu_0 = 4 * math.pi * 1e-7			# N / A^2
 
-for z in arange(-4*L, 4*L, L/20):  # z 從 -L/4 到 L/4 增加，計算 10 個位置
-    print(z)
-    if z != -2.842170943040401e-14:
-        continue
 
-    B_list = []
-    for phi in arange(0, 2*math.pi, 2*math.pi/100):  # 方位角繞一整圈，共計算 20 個位置
+dr = R / 100  # 把半徑切100份
+dphi = 2*math.pi / 50  # 把角度切50份
+for dr_total in arange(0, 0.35, dr):
+    BL = 0												# 路徑積分的結果，先設為 0
 
-        r = vector(						# 算出要計算 磁場 的位置
-            R * 1.25 * math.cos(phi),   # 在電線半徑 1.25 倍的地方（電線外面不遠處）
-            R * 1.25 * math.sin(phi),
-            z
-        )
+    for dphi_total in arange(0, 2*math.pi, dphi):
+
+        r = vector(dr_total * math.cos(dphi_total),
+                   dr_total * math.sin(dphi_total), 0)
+        phi_norm = vector(0, 0, 1).cross(r.norm())
+        dl_mang = dr_total * dphi
+        dl = phi_norm * dl_mang
 
         B = vector(0, 0, 0)    # 磁場先設定為 0，後面計算中會積分出來
 
         # 切割電線（做積分）
-        drp = R / 80    # 沿著圓柱半徑（rho軸）切成多個小段
+        drp = R / 20    # 沿著圓柱半徑（rho軸）切成多個小段
         dphip = 2*math.pi / 80    # 沿著角度（phi軸）切成多個小角度
         dzp = L / 80   # 沿著圓柱軸長（z軸）切成多個小段
 
@@ -94,8 +72,4 @@ for z in arange(-4*L, 4*L, L/20):  # z 從 -L/4 到 L/4 增加，計算 10 個�
                     # 加總到 B
                     B += dB
 
-        B_list.append(B.mag)
-        arrow(pos=r, axis=B*1e4, shaftwidth=sw/3)			# 畫一個箭頭代表磁場
         rate(1000)										# 更新畫面，裡面的數字是【希望】電腦可以每秒更新
-
-    B_r.plot(z, sum(B_list)/len(B_list))
